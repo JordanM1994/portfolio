@@ -4,13 +4,10 @@ def tictactoe(values):
     print("\t     |     |")
     print("\t  {}  |  {}  |  {}".format(values[0], values[1], values[2]))
     print('\t_____|_____|_____')
-
     print("\t     |     |")
     print("\t  {}  |  {}  |  {}".format(values[3], values[4], values[5]))
     print('\t_____|_____|_____')
-
     print("\t     |     |")
-
     print("\t  {}  |  {}  |  {}".format(values[6], values[7], values[8]))
     print("\t     |     |")
     print("\n")
@@ -49,7 +46,7 @@ def game(current_player):
 
         # Try exception block for MOVE input
         try:
-            print("Player ", current_player, " turn. Which box? : ", end="")
+            print("Player ", current_player, " turn. Which box? : ")
             move = int(input())
         except ValueError:
             print("This space doesn't exist, please try again")
@@ -58,14 +55,10 @@ def game(current_player):
         # does the space entered exist
         if move < 1 or move > 9:
             print("This space doesn't exist, please try again")
-            continue
 
         # Check if the box is not occupied already
         if values[move - 1] != ' ':
             print("Place already filled. Try again")
-            continue
-
-        # Update game information
 
         # Updating grid status
         values[move - 1] = current_player
