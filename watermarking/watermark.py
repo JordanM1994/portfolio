@@ -1,5 +1,5 @@
 from tkinter import *
-from tkinter import filedialog
+from tkinter import filedialog, messagebox
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
@@ -10,6 +10,9 @@ fonts = {
     "WorkSans": "WorkSans-Regular.ttf"
 }
 
+positions = ["Top", "Bottom"]
+
+
 def watermarking():
 
     photo = Image.open(upload_file_link.cget("text"))
@@ -18,12 +21,15 @@ def watermarking():
     print(w, h)
 
     drawing = ImageDraw.Draw(photo)
-    font = ImageFont.truetype(f'fonts/{fonts[clicked.get()]}', 40)
+    font = ImageFont.truetype(f'fonts/{fonts[font_clicked.get()]}', 40)
 
     text = text_box.get()
     text_w, text_h = drawing.textsize(text, font)
 
-    pos = (0,h-50)
+    if pos_clicked.get() == "Top":
+        pos = (0, 0)
+    elif pos_clicked.get() == "Bottom":
+        pos = (0, h-50)
 
     c_text = Image.new('RGB', (text_w, (text_h)), color = '#000000')
     drawing = ImageDraw.Draw(c_text)
@@ -33,6 +39,8 @@ def watermarking():
 
     photo.paste(c_text, pos, c_text)
     photo.save('watermarked_images/watermarked_image.jpg')
+
+    messagebox.showinfo(title="Success", message="Your image has been successfully watermarked.")
 
 
 def UploadAction(event=None):
@@ -57,15 +65,26 @@ text_box = Entry()
 text_box.grid(column=1, row=2)
 text_box.focus()
 
-clicked = StringVar()
-clicked.set("Goldman")
+font_clicked = StringVar()
+font_clicked.set("Goldman")
 
 font_selection_label = Label(text="What font would you like to use?")
 font_selection_label.grid(column=0, row=3)
-font_selection_dropdown = OptionMenu(window, clicked ,*fonts.keys())
+font_selection_dropdown = OptionMenu(window, font_clicked ,*fonts.keys())
 font_selection_dropdown.grid(column=1, row=3)
 
+pos_clicked = StringVar()
+pos_clicked.set("Top")
+
+pos_selection_label = Label(text="What font would you like to use?")
+pos_selection_label.grid(column=0, row=4)
+pos_selection_dropdown = OptionMenu(window, pos_clicked ,*positions)
+pos_selection_dropdown.grid(column=1, row=4)
+
 submit = Button(text="Watermark!", command=watermarking)
-submit.grid(column=0, row=4, columnspan=2)
+submit.grid(column=0, row=5, columnspan=2)
+
+success_message = Label(text="")
+success_message.grid(column=0,row=6, columnspan=2)
 
 window.mainloop()
