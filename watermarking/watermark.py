@@ -10,7 +10,7 @@ from PIL import ImageFont
 fonts = {
     "Goldman": "Goldman-Regular.ttf",
     "Inconsolata": "Inconsolata-Regular.ttf",
-    "WorkSans": "WorkSans-Regular.ttf"
+    "WorkSans": "WorkSans-Regular.ttf",
 }
 
 # ------------------------------------------ Watermark position -------------------------------------------#
